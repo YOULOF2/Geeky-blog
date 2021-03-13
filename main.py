@@ -200,6 +200,7 @@ def load_user(user_id):
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
+    wallpaper = get_random_wallpaper(all_wallpaper_data)
     if not is_admin():
         return render_template("index.html", all_posts=posts, user_logged_in=current_user.is_authenticated,
                                wallpaper=wallpaper)
