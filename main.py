@@ -12,10 +12,6 @@ from functools import wraps
 import requests
 import random
 import os
-from dotenv import load_dotenv
-# ==================================================================================================================== #
-
-load_dotenv()
 
 # ==================================================================================================================== #
 HASHING_METHOD = "pbkdf2:sha256"
@@ -46,8 +42,8 @@ ERROR_CODES = {
         "description": "Where facing some technical difficulties. Please try again later."
     }
 }
-APP_SECRET_KEY = os.getenv("APP_SECRET_KEY")
-UNSPLASH_CLIENT_ID = os.getenv("UNSPLASH_CLIENT_ID")
+APP_SECRET_KEY = os.environ.get("APP_SECRET_KEY")
+UNSPLASH_CLIENT_ID = os.environ.get("UNSPLASH_CLIENT_ID")
 # ==================================================================================================================== #
 app = Flask(__name__)
 app.config['SECRET_KEY'] = APP_SECRET_KEY
