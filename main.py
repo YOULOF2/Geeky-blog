@@ -175,11 +175,9 @@ def load_user(user_id):
 def get_all_posts():
     posts = BlogPost.query.all()
     if not is_admin():
-        return render_template("index.html", all_posts=posts, user_logged_in=current_user.is_authenticated,
-                               wallpaper=wallpaper)
+        return render_template("index.html", all_posts=posts, user_logged_in=current_user.is_authenticated,)
     else:
-        return render_template("index.html", all_posts=posts, user_logged_in=True, admin_access=True,
-                               wallpaper=wallpaper)
+        return render_template("index.html", all_posts=posts, user_logged_in=True, admin_access=True,)
 
 
 @app.route('/register', methods=["GET", "POST"])
