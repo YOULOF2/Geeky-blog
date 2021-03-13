@@ -49,8 +49,8 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 # ==================================================================================================================== #
 # CONNECT TO DB
-print(os.environ.get("DATABASE_URL",  "sqlite:///blog.db"))
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///blog.db")
+print(os.environ.get("DATABASE_URL", "sqlite:///blog.db"))
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 # ==================================================================================================================== #
@@ -63,8 +63,6 @@ gravatar = Gravatar(app,
                     force_lower=False,
                     use_ssl=False,
                     base_url=None)
-
-# ==================================================================================================================== #
 
 # ==================================================================================================================== #
 
@@ -165,16 +163,13 @@ def load_user(user_id):
 # db.create_all()
 # ==================================================================================================================== #
 
-
-# ==================================================================================================================== #
-
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
     if not is_admin():
-        return render_template("index.html", all_posts=posts, user_logged_in=current_user.is_authenticated,)
+        return render_template("index.html", all_posts=posts, user_logged_in=current_user.is_authenticated, )
     else:
-        return render_template("index.html", all_posts=posts, user_logged_in=True, admin_access=True,)
+        return render_template("index.html", all_posts=posts, user_logged_in=True, admin_access=True, )
 
 
 @app.route('/register', methods=["GET", "POST"])
@@ -299,8 +294,6 @@ def delete_post(post_id):
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('get_all_posts'))
-
-
 
 
 # ==================================================================================================================== #
