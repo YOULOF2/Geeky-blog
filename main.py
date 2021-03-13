@@ -48,7 +48,6 @@ ERROR_CODES = {
 }
 APP_SECRET_KEY = os.environ.get("APP_SECRET_KEY")
 UNSPLASH_CLIENT_ID = os.environ.get("UNSPLASH_CLIENT_ID")
-SQLITE_DATABASE_URL = os.environ.get("DATABASE_URL")
 # ==================================================================================================================== #
 app = Flask(__name__)
 app.config['SECRET_KEY'] = APP_SECRET_KEY
@@ -56,7 +55,7 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 # ==================================================================================================================== #
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = SQLITE_DATABASE_URL
+app.config['SQLALCHEMY_DATABASE_URI'] = app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 # ==================================================================================================================== #
