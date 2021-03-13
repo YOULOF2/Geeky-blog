@@ -9,7 +9,6 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
-import requests
 import random
 import os
 
@@ -106,30 +105,6 @@ def is_admin():
         return False
 
 
-def get_random_wallpaper(data_json):
-    random_wallpaper_data = random.choice(data_json)
-    wallpaper = random_wallpaper_data["urls"]["full"]
-    return wallpaper
-
-
-def get_wallpaper_data():
-    endpoint = "https://api.unsplash.com/photos/random"
-    parameters = {
-        "client_id": UNSPLASH_CLIENT_ID,
-        "count": 30,
-        "orientation": "landscape",
-        "query": "adventure"
-    }
-    response = requests.get(url=endpoint, params=parameters)
-    wallpaper_json = response.json()
-    print("Getting wallpapers")
-    return wallpaper_json
-
-
-all_wallpaper_data = get_wallpaper_data()
-wallpaper = get_random_wallpaper(all_wallpaper_data)
-
-
 # ==================================================================================================================== #
 # CONFIGURE TABLES
 class User(db.Model, UserMixin):
@@ -199,7 +174,6 @@ def load_user(user_id):
 @app.route('/')
 def get_all_posts():
     posts = BlogPost.query.all()
-    wallpaper = get_random_wallpaper(all_wallpaper_data)
     if not is_admin():
         return render_template("index.html", all_posts=posts, user_logged_in=current_user.is_authenticated,
                                wallpaper=wallpaper)
@@ -332,20 +306,6 @@ def delete_post(post_id):
     return redirect(url_for('get_all_posts'))
 
 
-@app.route("/next_bg")
-@admin_only
-def next_bg():
-    global wallpaper
-    wallpaper = get_random_wallpaper(all_wallpaper_data)
-    return redirect(url_for("get_all_posts"))
-
-
-@app.route("/new_bg_data")
-@admin_only
-def new_bg_data():
-    global all_wallpaper_data
-    all_wallpaper_data = get_wallpaper_data()
-    return redirect(url_for("get_all_posts"))
 
 
 # ==================================================================================================================== #
