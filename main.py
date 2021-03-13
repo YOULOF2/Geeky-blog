@@ -11,6 +11,7 @@ from flask_gravatar import Gravatar
 from functools import wraps
 import requests
 import random
+import os
 
 # ==================================================================================================================== #
 HASHING_METHOD = "pbkdf2:sha256"
@@ -41,9 +42,11 @@ ERROR_CODES = {
         "description": "Where facing some technical difficulties. Please try again later."
     }
 }
+APP_SECRET_KEY = os.getenv("APP_SECRET_KEY")
+UNSPLASH_CLIENT_ID = os.getenv("UNSPLASH_CLIENT_ID")
 # ==================================================================================================================== #
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = APP_SECRET_KEY
 ckeditor = CKEditor(app)
 Bootstrap(app)
 # ==================================================================================================================== #
@@ -109,7 +112,7 @@ def get_random_wallpaper(data_json):
 def get_wallpaper_data():
     endpoint = "https://api.unsplash.com/photos/random"
     parameters = {
-        "client_id": "Jzfxkmc_EBoVFqmhlv-hwomXZPnQ5sn9E90-uMa4C0k",
+        "client_id": UNSPLASH_CLIENT_ID,
         "count": 30,
         "orientation": "landscape",
         "query": "adventure"
