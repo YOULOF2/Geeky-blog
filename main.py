@@ -12,8 +12,7 @@ from functools import wraps
 import requests
 import random
 import os
-from dotenv import load_dotenv
-load_dotenv()
+
 # ==================================================================================================================== #
 HASHING_METHOD = "pbkdf2:sha256"
 SALT_TIMES = 8
