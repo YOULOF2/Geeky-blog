@@ -9,7 +9,6 @@ from flask_login import UserMixin, login_user, LoginManager, current_user, logou
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
-import random
 import os
 
 # ==================================================================================================================== #
@@ -43,8 +42,6 @@ ERROR_CODES = {
 }
 APP_SECRET_KEY = os.environ.get("APP_SECRET_KEY")
 print(APP_SECRET_KEY)
-UNSPLASH_CLIENT_ID = os.environ.get("UNSPLASH_CLIENT_ID")
-print(UNSPLASH_CLIENT_ID)
 # ==================================================================================================================== #
 app = Flask(__name__)
 app.config['SECRET_KEY'] = APP_SECRET_KEY
