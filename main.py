@@ -10,6 +10,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 import os
+
 # ==================================================================================================================== #
 HASHING_METHOD = "pbkdf2:sha256"
 SALT_TIMES = 8
@@ -163,6 +164,8 @@ def load_user(user_id):
 
 
 db.create_all()
+
+
 # ==================================================================================================================== #
 
 @app.route('/')
