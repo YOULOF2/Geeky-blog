@@ -40,8 +40,8 @@ ERROR_CODES = {
     }
 }
 APP_SECRET_KEY = os.environ.get("APP_SECRET_KEY")
-# DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
-DATABASE_URL = "sqlite:///blog.db"
+DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
+# DATABASE_URL = "sqlite:///blog.db"
 # ==================================================================================================================== #
 app = Flask(__name__)
 app.config['SECRET_KEY'] = APP_SECRET_KEY
