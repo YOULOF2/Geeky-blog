@@ -105,7 +105,7 @@ def is_admin():
 # ==================================================================================================================== #
 # CONFIGURE TABLES
 class User(db.Model, UserMixin):
-    __tablename__ = "user_data"
+    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     # ********** Add Children Relationship ********** #
     posts = relationship("BlogPost", back_populates="author")
@@ -123,7 +123,7 @@ class BlogPost(db.Model):
 
     # ********** Add Parent Relationship ********** #
     # Create Foreign Key, "user_data.id" the users refers to the tablename of User.
-    author_id = db.Column(db.Integer, db.ForeignKey("user_data.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # Create reference to the User object, the "posts" refers to the posts protperty in the User class.
     author = relationship("User", back_populates="posts")
     # ********************************************* #
@@ -144,7 +144,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # ********** Add Parent Relationship ********** #
-    author_id = db.Column(db.Integer, db.ForeignKey("user_data.id"))
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     comment_author = relationship("User", back_populates="comments")
 
     parent_post = relationship("BlogPost", back_populates="comments")
@@ -162,7 +162,7 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-# db.create_all()
+db.create_all()
 # ==================================================================================================================== #
 
 @app.route('/')
